@@ -1,0 +1,79 @@
+<!--  File Name: details.ejs
+      Student Name: Marco Favaretto
+      Student ID: 301186334
+      Date: 10/24/2022 -->
+
+<% include ../partials/header.ejs %>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <h1><%= title %></h1>
+      <form class="form" method="post">
+        <div class="form-group">
+          <label for="IdTextField">Product id</label>
+          <input
+            type="text"
+            class="form-control"
+            id="IdTextField"
+            placeholder="Product id"
+            name="Productid"
+            value="<%= product.Productid %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="NameTextField">Product Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="NameTextField"
+            placeholder="Product name"
+            name="Productname"
+            value="<%= product.Productname %>"
+            required
+          />
+        </div>
+
+        <!-- I changed the input to text area to have more space for description -->
+        <div class="form-group">
+          <label for="DescTextField">Description</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="DescTextField"
+            placeholder="Product Description"
+            name="Description"
+            value=""
+            required
+          ><%= product.Description %></textarea>
+        </div>
+
+        <!-- I added in this field step="any" to be able to insert float number -->
+        <div class="form-group">
+          <label for="PriceTextField">Price</label>
+          <input
+            type="number"
+            step="any"
+            class="form-control"
+            id="PriceTextField"
+            placeholder="Product Price"
+            name="price"
+            value="<%= product.Price %>"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-check-square-o"></i> Submit
+        </button>
+        <a href="/products" class="btn btn-warning"
+          ><i class="fa fa-undo"></i> Cancel</a
+        >
+      </form>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer.ejs %>

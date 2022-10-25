@@ -1,0 +1,104 @@
+<!--  File Name: index.ejs
+      Student Name: Marco Favaretto
+      Student ID: 301186334
+      Date: 10/24/2022 -->
+
+<% include ../partials/header.ejs %>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <h3>Prodcut details</h3>
+      <!-- ------------------------ -->
+      <!-- FIX THE ADD BUTTON BELOW -->
+      <!-- ------------------------ -->
+      <a href="/products/add" class="btn btn-primary" role="button">
+        <i class="fa fa-plus"></i> Add a product</a>
+      <br />
+      <br />
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 10%;">Product id</th>
+              <th class="text-center">Product name</th>
+              <th class="text-center">Description</th>
+              <th class="text-center">price</th>
+              <th class="text-center"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Template Row -->
+            <% for (let count = 0; count < products.length; count++) { %>
+            <tr>
+              <td class="text-center"><%= products[count].Productid %></td>
+              <td class="text-center"><%= products[count].Productname %></td>
+              <td class="col-4"><%= products[count].Description %></td>
+              <td class="text-center"><%= products[count].Price %></td>
+
+              <td class="text-center">
+                <!-- ------------------------ -->
+                <!-- ADD the EDIT BUTTON HERE -->
+                <!-- ------------------------ -->
+                <!-- Call the product details.ejs passing the id of the current data row -->
+                <a href="/products/details/<%= products[count]._id %>" class="btn btn-primary btn-sm">
+                  <i class="fas fa-pencil-alt"></i> Edit</a>
+              </td>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Form called by delete button to prompt the range price values to delete -->
+      <div class="form-popup" id="myForm">
+        <form action="/action_page.php" class="form-container">
+          <h1>Range Price</h1>
+      
+          <label for="Starting price"><b>Starting Price</b></label>
+          <input type="number" placeholder=">= 0.00" name="minPrice" step="any" required>
+      
+          <label for="Ending price"><b>Ending Price</b></label>
+          <input type="number" placeholder="&lt;= 0.00" name="maxPrice" step="any" required>
+      
+          <button type="button" class="btn" onclick="deleteData()">Delete</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
+      </div>
+      
+      <script>
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+      }
+      
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+      }
+
+      // Function to collect the minPrice and maxPrice from the form and send them to delete
+      function deleteData() {
+        let minPrice = document.getElementsByName("minPrice")[0].value;
+        let maxPrice = document.getElementsByName("maxPrice")[0].value;
+        location.href = "/products/delete/" + minPrice + "/" + maxPrice;
+      }
+      </script>
+
+    <!-- ------------------------ -->
+    <!-- ADD the DELETE BUTTON HERE -->
+    <!-- ------------------------ -->
+    <!-- <button class="open-button" onclick="openForm()">Open Form</button> -->
+    <a class="btn btn-warning btn-sm open-button" onclick="openForm()">
+      <i class="fas fa-trash"></i> Delete</a>
+    <!-- <a href="/products/delete/" class="btn btn-warning btn-sm">
+      <i class="fas fa-trash"></i> Delete</a> -->
+  </main>
+  
+
+      <div class="col-md-offset-1 col-md-10 text-center">
+        <ul class="pagination pagination-lg pager" id="myPager"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer.ejs %>
